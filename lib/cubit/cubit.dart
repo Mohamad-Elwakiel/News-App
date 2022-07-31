@@ -8,6 +8,7 @@ import 'package:news_app/cubit/states.dart';
 import 'package:news_app/modules/Science/science_screen.dart';
 import 'package:news_app/modules/settings/settings_screen.dart';
 import 'package:news_app/modules/sports/sports_screen.dart';
+import 'package:news_app/network/local/cache_helper.dart';
 
 import '../modules/Business/Business_Screen.dart';
 import '../network/remote/dio_helper.dart';
@@ -150,9 +151,17 @@ class ThemeCubit extends Cubit <ThemeStates>
 
   bool isDark = false;
 
-  void  changeAppTheme (){
-    isDark = !isDark;
-    emit(ChangeAppTheme());
+  void  changeAppTheme ({bool? theme}){
+    if(theme != null) {
+      isDark = theme;
+    }
+    else {
+      isDark = !isDark;
+    }
+      CacheHelper.putData(key: 'isDark', value: isDark).then((value) =>
+          emit(ChangeAppTheme()));
+
+    
   }
 
 }

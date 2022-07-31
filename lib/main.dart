@@ -10,16 +10,19 @@ import 'package:news_app/layout/home_layout.dart';
 import 'package:bloc/bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/network/local/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 import 'package:news_app/shared/Bloc_observer.dart';
 import 'layout/home_layout.dart';
 
-void main() {
+void main()  {
   BlocOverrides.runZoned(()
-      {
-        runApp(MyApp());
-
-        DioHelper.init();
+      async {
+          WidgetsFlutterBinding.ensureInitialized();
+          DioHelper.init();
+          await CacheHelper.init();
+          bool? isDark = CacheHelper.getData(key: 'isDark');
+          runApp(MyApp(isDark!));
 
 
       },
@@ -29,13 +32,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  final bool isDark;
+  // ignore: use_key_in_widget_constructors
+  const MyApp(this.isDark);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ThemeCubit(),
+      create: (BuildContext context) => ThemeCubit()..changeAppTheme(theme: isDark),
       child: BlocConsumer<ThemeCubit, ThemeStates>(
         listener: (context, state) {},
         builder: (context, state) {
