@@ -21,23 +21,26 @@ class SearchScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: defaultFormField(
-                  controller: searchController,
-                  inputType: TextInputType.text,
-                  validator: (String? value){
-                    if(value!.isEmpty)
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  color: Colors.black26,
+                  child: defaultFormField(
+                    controller: searchController,
+                    inputType: TextInputType.text,
+                    validator: (String? value){
+                      if(value!.isEmpty)
+                      {
+                        return 'search must not be empty';
+                      }
+                      return null;
+                    },
+                    text: 'Search',
+                    prefixIcon: Icons.search,
+                    onChange: (value)
                     {
-                      return 'search must not be empty';
-                    }
-                    return null;
-                  },
-                  text: 'Search',
-                  prefixIcon: Icons.search,
-                  onChange: (value)
-                  {
-                    NewsCubit.get(context).getSearchedForNews(value!);
-                  },
+                      NewsCubit.get(context).getSearchedForNews(value!);
+                    },
+                  ),
                 ),
               ),
               Expanded(child: articleBuilder(list)),

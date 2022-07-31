@@ -2,6 +2,8 @@
 
 A new Flutter application.
 
+A news app that displays the top headlines in business, sport and science news 
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
