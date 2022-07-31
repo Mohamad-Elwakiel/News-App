@@ -78,3 +78,41 @@ Widget articleBuilder (list) => ConditionalBuilder(
         separatorBuilder: (context, index) => itemDivider(),
         itemCount: list.length),
     fallback: (context) => Center(child: CircularProgressIndicator()));
+
+Widget defaultFormField({
+  required TextEditingController controller,
+  required TextInputType inputType,
+  Function(String?)?  onSubmit,
+  Function(String?)? onChange,
+  VoidCallback? onTap,
+  required String? Function(String?)? validator,
+  required String text,
+  required IconData prefixIcon,
+  IconData? suffixIcon,
+  bool isClickable = true,
+  VoidCallback? suffixPressed,
+  bool isPassword = false,
+}) =>  TextFormField(
+  controller: controller,
+  keyboardType: inputType,
+  obscureText: isPassword,
+  onFieldSubmitted: onSubmit,
+  onChanged: onChange,
+  enabled: isClickable,
+  validator: validator,
+  onTap: onTap,
+  decoration: InputDecoration(
+    labelText: text,
+    border: OutlineInputBorder(),
+    prefixIcon: Icon(
+      prefixIcon,
+    ),
+    suffixIcon: suffixIcon!=null? IconButton(
+      icon: Icon(suffixIcon),
+      onPressed: suffixPressed,
+    ) :  null,
+  ),
+);
+
+
+void navigateTo (context, Widget) => Navigator.push(context, MaterialPageRoute(builder: (context) => Widget));

@@ -38,8 +38,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => ThemeCubit()..changeAppTheme(theme: isDark),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NewsCubit()..getBusinessNews()),
+        BlocProvider(create: (BuildContext context) => ThemeCubit()..changeAppTheme(theme: isDark)),
+      ],
       child: BlocConsumer<ThemeCubit, ThemeStates>(
         listener: (context, state) {},
         builder: (context, state) {

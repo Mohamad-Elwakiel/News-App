@@ -38,6 +38,19 @@ class GetScienceNewsFailState extends NewsStates {
   GetScienceNewsFailState(this.error);
 }
 
+class GetSearchedNewsLoadingState extends NewsStates {}
+
+class GetSearchedNewsSuccessState extends NewsStates {}
+
+class GetSearchedNewsFailState extends NewsStates {
+
+  final String error;
+
+  GetSearchedNewsFailState(this.error);
+}
+
+
+
 class ChangeAppTheme extends ThemeStates {}
 
 class InitialThemeState extends ThemeStates {}
